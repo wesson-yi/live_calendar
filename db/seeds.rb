@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+('A'..'D').each do |letter|
+  Partner.create(name: "合伙人#{letter}")
+end
+
+"甲、乙、丙、丁、戊、己、庚、辛".split('、').each do |letter|
+  Pioneer.create(name: "创业者-#{letter}")
+end
+
+time = Time.parse("09:00")
+for i in (0..31) do
+  PartTime.create(start_at: time, duration: 15)
+  time = time + 15.minutes
+end
