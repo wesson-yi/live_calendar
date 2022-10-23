@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_020132) do
     t.date "date"
     t.bigint "part_time_id", null: false
     t.bigint "partner_id", null: false
-    t.bigint "pioneer_id", null: false
-    t.string "status"
+    t.bigint "pioneer_id"
+    t.string "status", default: "ready"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["part_time_id"], name: "index_meetings_on_part_time_id"

@@ -1,14 +1,35 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Meetings</h1>
 
-<div id="meetings">
-  <% @meetings.each do |meeting| %>
-    <%= render meeting %>
-    <p>
-      <%= link_to "Show this meeting", meeting %>
-    </p>
-  <% end %>
+<div id="meetings" style="padding-left: 25rem">
+
+  <%= date_field_tag :date  %>
+
+  <table data-controller="meetings" style="">
+    <tr>
+      <th></th>
+      <% Partner.all.each do |partner| %>
+        <th>
+          <%= text_field_tag '', partner.id, style: "display:none" %>
+          <%= partner.name %>
+        </th>
+      <% end %>
+    </tr>
+    <% PartTime.all.each do |time| %>
+      <tr>
+        <td><%= time.start_at.strftime('%R') %></td>
+        <% Partner.pluck(:id).each do |partner_id| %>
+          <td>
+            <%= form_tag do %>
+              <%= text_field_tag 'part_time_id', time.id, style: 'width: 1rem;display:none' %>
+              <%= text_field_tag 'partner_id', partner_id, style: 'width: 1rem;display:none' %>
+              <%= button_tag ( (meeting=@meetings.find{|x| x.part_time_id==time.id && x.partner_id==partner_id}) ) ? (meeting.pioneer&.name || '空闲') : '', "data-action": "meetings#create", 'data-part-time-id': time.id, 'data-partner-id': partner_id %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+   </table>
 </div>
 
 <%= link_to "New meeting", new_meeting_path %>
