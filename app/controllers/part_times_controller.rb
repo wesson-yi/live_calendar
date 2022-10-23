@@ -1,0 +1,2 @@
+class PartTimesController < ApplicationController
+end

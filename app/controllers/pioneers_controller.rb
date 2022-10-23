@@ -1,0 +1,2 @@
+class PioneersController < ApplicationController
+end
